@@ -18,14 +18,14 @@ refs.form.addEventListener('submit', onFormSubmit);
 refs.input.addEventListener('input', throttle(onEmailInput, 500));
 refs.textarea.addEventListener('input', throttle(onMessageInput, 500));
 
-function emailInput(evt) {
+function onEmailInput(evt) {
    storageValue.email = evt.target.value;
 
     localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(storageValue));
     
 };
 
-function messageInput(evt) {
+function onMessageInput(evt) {
     storageValue.message = evt.target.value;
 
     localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(storageValue));
@@ -42,7 +42,7 @@ function setTextarea() {
 setTextarea()
     
     
-function formSubmit(evt) {
+function onFormSubmit(evt) {
   evt.preventDefault();
   evt.currentTarget.reset();
     
