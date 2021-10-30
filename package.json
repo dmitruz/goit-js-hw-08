@@ -19,7 +19,6 @@
     "url": "https://github.com/dmitruz/parcel-project-template/issues"
   },
   "devDependencies": {
-    "parcel": "^2.0.0",
     "parcel-bundler": "^1.12.5",
     "parcel-plugin-handlebars-precompile": "^1.0.2",
     "parcel-plugin-nuke-dist": "^1.0.1",
@@ -28,8 +27,6 @@
   },
   "dependencies": {
     "@vimeo/player": "^2.16.1",
-    "joi": "^17.4.2",
-    "lightgallery": "^2.3.0",
     "lodash.throttle": "^4.1.1",
     "simplelightbox": "^2.9.0"
   }
