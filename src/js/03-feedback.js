@@ -32,14 +32,14 @@ function onMessageInput(evt) {
   
 };
 
-function setTextarea() {
-  const saveMessage = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
-    if (saveMessage) {
-        refs.input.value = saveMessage.email;
-        refs.textarea.value = saveMessage.message;
+function populateTextarea() {
+  const savedMessage = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+    if (savedMessage) {
+        refs.input.value = savedMessage.email;
+        refs.textarea.value = savedMessage.message;
     }
 }
-setTextarea()
+populateTextarea()
     
     
 function onFormSubmit(evt) {
