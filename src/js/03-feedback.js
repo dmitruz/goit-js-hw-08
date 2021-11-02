@@ -1,54 +1,29 @@
 
 import throttle from 'lodash.throttle';
 
-const refs = {
-  form: document.querySelector('.feedback-form'),
-  input: document.querySelector('input'),
-  textarea: document.querySelector('textarea'),
-};
+const FEEDBACK_FORM_STATE = 'feedback-form-state';
+const form = document.querySelector('.feedback-form');
+const data = { email: '', message: ''};
+setValuesElemForm();
 
-const LOCALSTORAGE_KEY = "feedback-form-state";
+form.addEventListener('input', evt => {
+  data[evt.target.name] = evt.target.value;
+  localStorage.setItem(FEEDBACK_FORM_STATE, JSON.stringify({...data, [evt.target.name]: evt.target.value }),
+);
+});
 
-const storageValue = {
-    email: "",
-    message: "",
-};
-
-refs.form.addEventListener('submit', onFormSubmit);
-refs.input.addEventListener('input', throttle(onEmailInput, 500));
-refs.textarea.addEventListener('input', throttle(onMessageInput, 500));
-
-function onEmailInput(evt) {
-   storageValue.email = evt.target.value;
-
-    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(storageValue));
-    
-};
-
-function onMessageInput(evt) {
-    storageValue.message = evt.target.value;
-
-    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(storageValue));
-  
-};
-
-function populateTextarea() {
-  const savedMessage = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
-    if (savedMessage) {
-        refs.input.value = savedMessage.email;
-        refs.textarea.value = savedMessage.message;
-    }
-}
-populateTextarea()
-    
-    
-function onFormSubmit(evt) {
-  evt.preventDefault();
+form.addEventListener('submit', evt => {
+  evt.preventDefault()
   evt.currentTarget.reset();
-    
-    if (localStorage.getItem(LOCALSTORAGE_KEY)) {
-        console.log(localStorage.getItem(LOCALSTORAGE_KEY));
-    }
+  localStorage.removeItem(FEEDBACK_FORM_STATE);
+});
 
-  localStorage.removeItem(LOCALSTORAGE_KEY);
+function setValuesElemForm() {
+  const dataFromLs = JSON.parse(localStorage.getItem(FEEDBACK_FORM_STATE));
+  if (dataFromLs) {
+    data.email = dataFromLs.email;
+    data.message = dataFromLs.message;
+    form.elements.email.value = data.email;
+    form.elements.message.value = data.message;
+  } 
 }
